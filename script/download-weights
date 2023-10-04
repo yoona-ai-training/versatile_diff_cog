@@ -1,0 +1,22 @@
+script/download-weights#!/usr/bin/env python
+
+# Run this before you deploy it on replicate
+import os
+import sys
+import torch
+from diffusers import ControlNetModel, DiffusionPipeline, AutoencoderKL
+
+# append project directory to path so predict.py can be imported
+sys.path.append('.')
+from predict import VERSATILE_MODEL, VERSATILE_CACHE
+
+# Make cache folders
+if not os.path.exists(VERSATILE_CACHE):
+    os.makedirs(VERSATILE_CACHE)
+
+# Versatile Diffusion download
+pipe = VersatileDiffusionImageVariationPipeline.from_pretrained(
+    VERSATILE_MODEL,
+    torch_dtype=torch.float16
+)
+pipe.save_pretrained(CONTROL_CACHE)
